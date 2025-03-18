@@ -1,0 +1,17 @@
+// python functioning programming method -> c++
+
+#include <iostream>
+#include <functional> //std::function 
+
+using namespace std; 
+
+//cons function: input 2 values and save lamda function 
+function<int(function<int(int,int)>)>cons(int a, int b)
+{
+    return [a,b] (function<int(int, int)> f)
+    {
+        return f(a,b); 
+    };
+}
+
+//car function; bring first value 
