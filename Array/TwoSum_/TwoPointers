@@ -1,0 +1,50 @@
+#include <iostream> //input, output
+#include <vector>
+#include <algorithm> // for sorted array 
+
+using namespace std; 
+
+bool hasPairWithsum(vector<int>& nums, int k)
+{
+    sort(nums.begin(), nums.end()); // sorted number 
+    
+    int left = 0; 
+    int right = nums.size() -1; 
+    
+    while(left<right)
+    {
+        int sum = nums[left] + nums[right];
+
+        if(sum == k)
+        {
+            return true; //need number has been recorded -> found
+        }
+        else if (sum<k)
+        {
+            left++; // sum is smaller than k -> left number increased
+        }
+        else
+        {
+            right--; // sum is bigger than k -> right number decreased
+        }
+    }
+    return false; 
+}
+
+int main()
+{
+    vector<int> nums = {10,15,3,7}; 
+    int k = 17; 
+
+    if(hasPairWithsum(nums, k))
+    {
+        cout<<"yes"<<k<<endl; 
+    }
+    else
+    {
+        cout<<"No"<<k<<endl; 
+    } 
+
+    return 0; 
+}
+

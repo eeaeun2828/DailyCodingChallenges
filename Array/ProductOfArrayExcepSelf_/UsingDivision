@@ -1,0 +1,67 @@
+// Compute the total product of all number 
+// for each index, divide the total product by the number at that index
+
+#include <iostream>
+#include <vector>
+
+using namespace std; 
+
+vector<int> prpoductExceptSelf(const vector<int>& nums)
+{
+    int totalProduct = 1; 
+    int zeroCount = 0; 
+
+    //compute the total product, counting zeros 
+    for (int num: nums)
+    {
+        if(num != 0)
+        {
+            totalProduct*=num; 
+        }
+        else
+        {
+            zeroCount++;
+        }
+    }
+
+    vector<int> result(nums.size(),0); 
+
+    // if there are more than one zero, all elements in result must be 0 
+    if(zeroCount>1)
+    {
+        return result; 
+    }
+
+    for (size_t i = 0; i<nums.size(); i++)
+    {
+        if(zeroCount ==1)
+        {
+            // if there's exactly one zero, only that index will have non-zero value 
+            if(nums[i] == 0)
+            {
+                result[i]= totalProduct;
+            }
+        }
+        else
+        {
+            //normal case (without zero)
+            result[i] = totalProduct/nums[i]; 
+        }
+    }
+    return result; 
+
+}
+
+int main()
+    {
+        vector<int> nums = {1,2,3,4,5}; 
+        vector<int> result = prpoductExceptSelf(nums);
+
+        for(int num: result)
+        {
+            cout<<num<<" "; 
+        }
+        cout<<endl; 
+        
+        return 0 ; 
+    }

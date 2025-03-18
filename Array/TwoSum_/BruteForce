@@ -1,0 +1,38 @@
+#include <iostream> //input, output
+#include <vector>
+
+using namespace std; 
+
+bool hasPairWithsum(const vector<int>& nums, int k)
+{
+    int n = nums.size(); // size of list (how many numbers in there)
+
+    for(int i =0; i<n; i++)
+    {
+        for(int j=i+1; j<n; j++)
+        {
+            if(nums[i] + nums[j] == k)
+            {
+                return true; 
+            }
+        }
+    }
+    return false; 
+}
+
+int main()
+{
+    vector<int> nums = {10,15,3,7}; 
+    int k = 17; 
+
+    if(hasPairWithsum(nums, k))
+    {
+        cout<<"yes"<<k<<endl; 
+    }
+    else
+    {
+        cout<<"No"<<k<<endl; 
+    } 
+
+    return 0; 
+}

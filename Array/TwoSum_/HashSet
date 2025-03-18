@@ -1,0 +1,39 @@
+#include <iostream> //input, output
+#include <vector>
+#include <unordered_set> //used this for Hash set
+
+using namespace std; 
+
+bool hasPairWithsum(const vector<int>& nums, int k)
+{
+    unordered_set<int> seen; // record the number already seen 
+
+    for(int num : nums)
+    {
+        int complement = k - num; // need number to being k 
+        if(seen.count(complement))
+        {
+            return true; //need number has been recorded -> found
+        }
+        seen.insert(num); 
+    }
+    return false; 
+}
+
+int main()
+{
+    vector<int> nums = {10,15,3,7}; 
+    int k = 17; 
+
+    if(hasPairWithsum(nums, k))
+    {
+        cout<<"yes"<<k<<endl; 
+    }
+    else
+    {
+        cout<<"No"<<k<<endl; 
+    } 
+
+    return 0; 
+}
+
