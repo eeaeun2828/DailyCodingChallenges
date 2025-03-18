@@ -1,0 +1,35 @@
+class Node:
+    def __init__(self, val, left=None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# Binary tree -> Serialize
+def serialize(root):
+    def helper(node):
+        if not node:
+            return "None"
+        return f"{node.val}, {helper(node.left)}, {helper(node.right)}"
+    
+    return helper(root)
+
+# Deserialize
+def deserialize(data):
+    def helper(nodes):
+        val = nodes.pop(0) # take 1 value in the queue
+        if val == "None":
+            return None
+        node = Node(val) #New node
+        node.left = helper(nodes) # restore left sub-tree
+        node.right = helper(nodes) # restore right sub-tree
+        return node
+    
+    node_list = data.split(",") # string array -> list based on ","
+    return helper(node_list) # used list for tree re-structure
+
+# test code 
+node = Node('root', Node('left', Node('left.left')), Node('right'))
+
+# serialize -> deserialize -> re structing check 
+assert deserialize(serialize(node)).left.left.val == 'left.left'
+print("test successful")
