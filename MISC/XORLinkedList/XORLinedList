@@ -1,0 +1,100 @@
+#include <iostream>
+
+using namespace std; 
+
+//XOR linked list node structure
+struct Node
+{
+    int data; 
+    Node* both;
+};
+
+//XOR linked list node class 
+class XORLinkedList 
+{
+private:
+    Node* head; // first node (starting point of list)
+    Node* tail; // last node (ending point of list)
+
+    // pointer XOR, save the address
+    Node* XOR(Node* a, Node*b)
+    {
+        return reinterpret_cast<Node*>
+        (reinterpret_cast<uintptr_t>(a)^reinterpret_cast<uintptr_t>(b)); 
+    }
+    
+public:
+    // add constructor node
+    XORLinkedList()
+    {
+        head = nullptr; 
+        tail = nullptr; 
+    }
+
+    // add node 
+    void add(int data)
+    {
+        Node* newNode = new Node();
+        newNode->data= data; 
+        newNode->both=tail; // prev node XOR nullptr(when the first time)
+
+        if(tail)
+        {
+            tail->both = XOR(tail-> both, newNode);
+        }
+        else
+        {
+            //first node - head setting 
+            head = newNode;
+        }
+        tail = newNode; // new node = last node
+    }
+
+    // get the specific node (get)
+    Node* get(int index)
+    {
+        Node* prev = nullptr;
+        Node* current = head; 
+
+        for(int i =0; i<index &&current !=nullptr; i++)
+        {
+            Node* next = XOR(prev, current -> both); 
+            prev = current; 
+            current = next; 
+        }
+
+        return current; 
+    }
+
+    // print list 
+    void printList()
+    {
+        Node* prev = nullptr; 
+        Node* current = head; 
+
+        while (current)
+        {
+            cout << current-> data <<" ";
+            Node* next = XOR(prev, current->both);
+            prev = current; 
+            current = next; 
+        }
+        cout<<endl; 
+    }
+}; 
+
+// main function, teating XOR linked list 
+int main()
+{
+    XORLinkedList list; 
+    list.add(10);
+    list.add(20);
+    list.add(30);
+    list.add(40);
+
+    list.printList(); 
+
+    cout <<"Element at index 2: "<<list.get(2)->data<<endl; 
+
+    return 0; 
+}
