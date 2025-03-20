@@ -1,0 +1,39 @@
+#include <iostream> 
+#include <vector>
+
+using namespace std; 
+
+// 문자열을 해석하는 가능한 방법의 수를 계산 
+int numDecodings(string s)
+{
+    if(s.empty()||s[0]==0)
+    return 0;
+
+    int n = s.size(); 
+    vector<int> dp(n+1, 0); 
+    dp[0] = 1; //빈 문자열은 해석 가능 1가지 방법으로 
+    dp[1] = 1; //첫 번째 숫자가 0이 아닐 때 1가지 방법 
+
+    for(int i; i<=n; i++)
+    {
+        if(s[i-1] !='0')
+        {
+            dp[i] =dp[i-1]; //현재 숫자 단독 해석 가능 
+        }
+
+        int twoDigit = stoi(s.substr(i-2,2)); // 이전 숫자와 함께 두자리수 해석가능 여부 
+        if(twoDigit>=10 && twoDigit<=26)
+        {
+            dp[i] +=dp[i-2]; 
+        }
+    }
+    return dp[n]; 
+}
+
+int main()
+{
+    cout<<numDecodings("111")<<endl; //3
+    cout<<numDecodings("12")<<endl; //2
+    cout<<numDecodings("226")<<endl; //3
+    cout<<numDecodings("06")<<endl; //0
+}

@@ -1,0 +1,23 @@
+Good morning! Here's your coding interview problem for today.
+
+This problem was asked by Facebook.
+
+Given the mapping a = 1, b = 2, ... z = 26, and an encoded message, 
+count the number of ways it can be decoded.
+
+For example, the message '111' would give 3, 
+since it could be decoded as 'aaa', 'ka', and 'ak'.
+
+You can assume that the messages are decodable. For example, '001' is not allowed.
+
+1. DP table define
+- dp[i] = first i number decode
+- dp[0]= 1 빈 문자열은 1가지 방법으로 해석
+
+2. 점화식 Recurrence Relation
+- dp[i] = dp[i-1] 현재 숫자를 단일 문자로 해석가능할때 
+- dp[i] += dp[i-2] 현재 숫자가 이전 숫자와 함께 두 자리 수로 해석 가능할 때 
+
+3. Base Case
+- s[0] == "0" 이면 해석할 수 없음 -> return 0 
+- dp[1] =1 첫번째 숫자가 0이 아닐때 
