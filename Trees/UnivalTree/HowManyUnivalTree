@@ -1,0 +1,38 @@
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left=left
+        self.right=right
+
+def count_unival_subtrees(root):
+    count = 0 
+
+    def helper(node):
+        nonlocal count
+
+        # base case: empty node = unival 
+        if node is Node:
+            return True
+        
+        # left, right =? unival 
+        left_is_unival = helper(node.left)
+        right_is_unival = helper(node.right)
+
+        # if one = false -> !unival 
+        if not left_is_unival or not right_is_unival:
+            return False
+        
+        # if hasLeftChild, different value =! unival 
+        if node.left and node.left.val !=node.val:
+            return False
+        
+        # if hasRightChild, different value =! unival 
+        if node.right and node.right.val != node.val:
+            return False
+        
+        # unival!
+        count += 1
+        return True 
+    
+    helper(root)
+    return count

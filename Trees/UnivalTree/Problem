@@ -1,0 +1,23 @@
+Good morning! Here's your coding interview problem for today.
+
+This problem was asked by Google.
+
+A unival tree (which stands for "universal value") is a tree where all nodes under it have the same value.
+
+Given the root to a binary tree, count the number of unival subtrees.
+
+For example, the following tree has 5 unival subtrees:
+
+   0
+  / \
+ 1   0
+    / \
+   1   0
+  / \
+ 1   1
+
+목표: 루트 노드(root)로부터 전체 트리를 받았을 때, 그 안에 있는 "unival subtree"의 개수를 구해라.
+
+왼쪽, 오른쪽 자식이 없다면? → 무조건 unival (리프 노드)
+왼쪽, 오른쪽이 모두 존재할 때 → 각각의 값이 현재 노드와 같은지 확인
+하나라도 다르면 → unival 아님
