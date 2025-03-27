@@ -1,0 +1,18 @@
+import random 
+
+def estimate_pi(num_samples):
+    inside_circle = 0
+
+    for _ in range(num_samples):
+        x = random.uniform(-1,1)
+        y = random.uniform(-1,1) # -1~1 mistake 
+
+        # x^2 + y^2 <= 1 
+        if x*x + y*y <= 1:
+            inside_circle += 1 
+
+    # ratio x 4 = π 
+    pi_estimate = 4 * inside_circle/ num_samples
+    return round(pi_estimate, 3)
+
+print(estimate_pi(16)) 
