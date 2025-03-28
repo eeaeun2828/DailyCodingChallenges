@@ -1,0 +1,26 @@
+class OrderLog:
+    def __init__(self, N):
+        self.N = N
+        self.buffer = [None]*N
+        self.curr =0 
+
+    def record(self, order_id):
+        self.buffer[self.curr]= order_id
+        self.curr = (self.curr +1)% self.N
+        
+    def get_last(self,i):
+        idx = (self.curr -i)%self.N
+        return self.buffer[idx]
+    
+
+log = OrderLog(5)
+log.record("A")
+log.record("B")
+log.record("C")
+log.record("D")
+log.record("E")
+log.record("F")  
+
+print(log.get_last(1))  # F
+print(log.get_last(2))  # E
+print(log.get_last(5))  # B
